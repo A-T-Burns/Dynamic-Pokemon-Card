@@ -12,23 +12,23 @@ let fireIcon = "http://res.cloudinary.com/bpettis/image/upload/v1516916046/firet
 let fireBackground = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/176622e8-bf4c-4d60-9a64-b75cff245c16/d3n22fk-ca665f8a-9aa5-4508-9132-a0cc7b06c3b8.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzE3NjYyMmU4LWJmNGMtNGQ2MC05YTY0LWI3NWNmZjI0NWMxNlwvZDNuMjJmay1jYTY2NWY4YS05YWE1LTQ1MDgtOTEzMi1hMGNjN2IwNmMzYjgucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.eA_wRwNxQiV4TEmP_yY1ZEauNMCFMTml6wDnx5BdmzQ"
 
 let pokemonTypes = {
-    fire = {
+    Fire : {
         icon: "http://res.cloudinary.com/bpettis/image/upload/v1516916046/firetype_otgmwq.png",
         background: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/176622e8-bf4c-4d60-9a64-b75cff245c16/d3n22fk-ca665f8a-9aa5-4508-9132-a0cc7b06c3b8.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzE3NjYyMmU4LWJmNGMtNGQ2MC05YTY0LWI3NWNmZjI0NWMxNlwvZDNuMjJmay1jYTY2NWY4YS05YWE1LTQ1MDgtOTEzMi1hMGNjN2IwNmMzYjgucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.eA_wRwNxQiV4TEmP_yY1ZEauNMCFMTml6wDnx5BdmzQ",
     },
-    electric = {
+    Electric : {
         icon: "",
         background: "", 
     },
-    water = {
+    Water : {
         icon: "",
         background: "",
     },
-    grass = {
+    Grass : {
         icon: "https://www.pngkey.com/png/full/353-3532551_pokemon-snivy.png",
         background: "https://bit.ly/2whpa7m",
     },
-}
+};
 let Charmander = {
     name: "Charmander",
     stage: 1,
@@ -50,7 +50,7 @@ let Charmeleon = {
     ability2: `Flamethrower Discard 1 Fire Energy Card attached to Charmeleon in order to use this attack`,
     type: "Fire",
     img: "https://i.pinimg.com/originals/37/83/b4/3783b47987aef2a15c1b24a10a8b434c.png",
-}
+};
 let Charizard = {
     name: "Charizard",
     stage: 3,
@@ -61,16 +61,29 @@ let Charizard = {
     This power can't be used if Charizard is Asleep, Confused, or Paralyzed`,
     ability2: `<b>Fire Spin</b> Discard 2 Enegy cards attached to Charizard in order to use this attack`,
     type: "Fire",
-    img:"https://webstockreview.net/images/pokemon-clipart-charizard.png"
-}
-let cardStructure= ""
-let pokemon = [Charmander, Charmeleon, Charizard]
-let emptyCards= document.getElementById("pokemonfromjs")
+    img: "https://webstockreview.net/images/pokemon-clipart-charizard.png",
+};
+let Bulbasaur = {
+    name: "Bulbasaur",
+    stage: 1,
+    from: "basic",
+    HP: "60",
+    details: `Seed Pokemon Height 2' 04" Weight 15.2lbs.`,
+    ability1: "Tackle",
+    ability2: "Razor Leaf",
+    type: "Grass",
+    img: "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png"
+};
+let cardStructure= "";
+let pokemon = [Bulbasaur, Charmander, Charmeleon, Charizard];
+let emptyCards= document.getElementById("pokemonfromjs");
+let type="";
 for(let i=0; i < pokemon.length; i++){
-    let currentPokemon= pokemon[i]
-    let type=currentPokemon.type
+    let currentPokemon= pokemon[i];
+    type=currentPokemon.type
+    console.log(pokemonTypes[type].background)
     cardStructure= `
-    <div background=" class="pokemoncard">
+    <div style="background-image: url(${pokemonTypes[type].background})" class="pokemoncard">
         <div class="cardLine1">
             <p class="paddingRight noMargin"><b>Evolves</b> from ${currentPokemon.from}</p>
             <p class="noMargin">Put ${currentPokemon.name} on the stage 1 card</p>
@@ -97,8 +110,8 @@ for(let i=0; i < pokemon.length; i++){
         </div>
         <p class="movedescribe">${currentPokemon.ability2}</p>
         </div>
-    </div>`
-    let listItem= document.createElement("li")
-    listItem.innerHTML= cardStructure
-    emptyCards.appendChild(listItem)
-}
+    </div>`;
+    let listItem = document.createElement("li");
+    listItem.innerHTML = cardStructure;
+    emptyCards.appendChild(listItem);
+};
